@@ -7,14 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Halaman Utama</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-
-    <!-- ICONS -->
-    <link href="{{ asset('img/favicon.png') }}" rel="icon" />
-    <link href="{{ asset('img/apple-touch-icon.png') }}" rel="apple-touch-icon" />
 </head>
 
 <body>
     @include('Modal.Auth.login')
+    @include('Modal.Auth.regist')
     <header class="navbar-fixed-top p-3 bg-light">
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
@@ -29,13 +26,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Tentang Kami</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown-menu"
                                 aria-expanded="false">
                                 Dropdown
                             </a>
@@ -49,17 +46,22 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#login"
-                                href="/login">Masuk</a>
-                        </li>
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#login">Masuk</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#daftar">Daftar</a>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 </body>
 
 </html>

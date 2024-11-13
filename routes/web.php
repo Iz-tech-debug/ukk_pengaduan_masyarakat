@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MasyarakatController;
+use App\Models\Masyarakat;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,13 @@ Route::get('/', function () {
     return redirect('/halaman_utama');
 });
 
+Route::get('/admin', function () {
+    return view('Pengguna.Admin.index');
+});
+
 // Authentication
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::post('/register', [MasyarakatController::class, 'store'])->name('register');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

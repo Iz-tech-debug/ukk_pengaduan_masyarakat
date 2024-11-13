@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Masyarakat;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 
 class MasyarakatSeeder extends Seeder
 {
@@ -20,14 +21,14 @@ class MasyarakatSeeder extends Seeder
                 'nik' => '1234567890',
                 'nama' => 'Daffa Faiz Alghozi',
                 'username' => 'Daoa',
-                'password' => '12345678',
+                'password' => Hash::make('1'),
                 'telp' => '081223025896',
             ],
             [
                 'nik' => '56789276560',
                 'nama' => 'Fufufafa',
                 'username' => 'Fufu',
-                'password' => 'fufu123',
+                'password' => Hash::make('1'),
                 'telp' => '089123467891',
             ],
         ];
