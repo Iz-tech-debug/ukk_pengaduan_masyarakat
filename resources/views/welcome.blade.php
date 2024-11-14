@@ -10,8 +10,6 @@
 </head>
 
 <body>
-    @include('Modal.Auth.login')
-    @include('Modal.Auth.regist')
     <header class="navbar-fixed-top p-3 bg-light">
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
@@ -48,11 +46,11 @@
                         </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#login">Masuk</a>
+                                <a class="nav-link" href="/login">Masuk</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#daftar">Daftar</a>
+                                <a class="nav-link" href="/registrasi">Daftar</a>
                             </li>
                         @endguest
                     </ul>
