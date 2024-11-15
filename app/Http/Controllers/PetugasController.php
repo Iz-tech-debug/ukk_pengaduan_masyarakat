@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Petugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PetugasController extends Controller
 {
@@ -29,7 +30,37 @@ class PetugasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Memasukkan data kedalam Tabel Petugas
+        $request->validate([
+            'daffanama' => 'required|string',
+            'daffauser' => 'required|unique:masyarakat,username|unique:petugas,username',
+            'daffapassword' => 'required|string',
+            'daffatelp' => 'required|numeric',
+            'daffalevel' => 'required|string',
+        ], [
+            'daffanama.required' => 'Nama harus diisi',
+            'daffatelp.required' => 'Nomor Telepon harus diisi',
+            'daffatelp.numeric' => 'Nomor Telepon harus berupa angka',
+            'daffauser.required' => 'Username harus diisi',
+            'daffauser.unique' => 'Username sudah terdaftar',
+            'daffapassword.required' => 'Password harus diisi',
+            'daffalevel.required' => 'Hak akses harus dipilih',
+        ]);
+
+        $daffapetugas = new Petugas;
+
+        $daffapetugas->nama_petugas = $request->daffanama;
+        $daffapetugas->username = $request->daffauser;
+        $daffapetugas->password = Hash::make($request->daffapassword);
+        $daffapetugas->telp = $request->daffatelp;
+        $daffapetugas->level = $request->daffalevel;
+
+        // dd($daffapetugas);
+
+        $daffapetugas->save();
+
+        return redirect('/petugas');
+
     }
 
     /**
@@ -51,9 +82,39 @@ class PetugasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Petugas $petugas)
+    public function update(Request $request, $id_petugas)
     {
-        //
+        // Ubah data petugas
+
+        $request->validate([
+            'daffanama' => 'required|string',
+            'daffauser' => 'required|unique:masyarakat,username|unique:petugas,username',
+            'daffapassword' => 'required|string',
+            'daffatelp' => 'required|numeric',
+            'daffalevel' => 'required|string',
+        ], [
+            'daffanama.required' => 'Nama harus diisi',
+            'daffatelp.required' => 'Nomor Telepon harus diisi',
+            'daffatelp.numeric' => 'Nomor Telepon harus berupa angka',
+            'daffauser.required' => 'Username harus diisi',
+            'daffauser.unique' => 'Username sudah terdaftar',
+            'daffapassword.required' => 'Password harus diisi',
+            'daffalevel.required' => 'Hak akses harus dipilih',
+        ]);
+
+        $daffapetugas = Petugas::where('id_petugas', $id_petugas)->firstOrFail();
+
+        $daffapetugas->nama_petugas = $request->daffanama;
+        $daffapetugas->username = $request->daffauser;
+        $daffapetugas->password = Hash::make($request->daffapassword);
+        $daffapetugas->telp = $request->daffatelp;
+        $daffapetugas->level = $request->daffalevel;
+
+        // dd($daffapetugas);
+
+        $daffapetugas->save();
+
+        return redirect('/petugas');
     }
 
     /**

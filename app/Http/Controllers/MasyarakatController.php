@@ -60,7 +60,36 @@ class MasyarakatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Memasukkan data kedalam tabel Masyarakat
+
+        $request->validate([
+            'daffanik' => 'required|unique:masyarakat,nik',
+            'daffanama' => 'required|string',
+            'daffatelpon' => 'required|numeric',
+            'daffausername' => 'required|unique:masyarakat,username|unique:petugas,username',
+            'daffapassword' => 'required|string',
+        ], [
+            'daffanik.required' => 'NIK harus diisi',
+            'daffanik.unique' => 'NIK sudah terdaftar',
+            'daffanama.required' => 'Nama harus diisi',
+            'daffatelpon.required' => 'Nomor Telepon harus diisi',
+            'daffatelpon.numeric' => 'Nomor Telepon harus berupa angka',
+            'daffausername.required' => 'Username harus diisi',
+            'daffausername.unique' => 'Username sudah terdaftar',
+            'daffapassword.required' => 'Password harus diisi',
+        ]);
+
+        $daffamasyarakat = new Masyarakat;
+
+        $daffamasyarakat->nik = $request->daffanik;
+        $daffamasyarakat->nama = $request->daffanama;
+        $daffamasyarakat->username = $request->daffausername;
+        $daffamasyarakat->password = Hash::make($request->daffapassword);
+        $daffamasyarakat->telp = $request->daffatelpon;
+
+        $daffamasyarakat->save();
+
+        return redirect('/masyarakat');
     }
 
     /**

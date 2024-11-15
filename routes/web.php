@@ -48,3 +48,9 @@ Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('reg
 // Petugas
 Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas_index');
 
+Route::post('/tambah_petugas', [PetugasController::class, 'store'])->name('tambah_petugas');
+
+Route::put('/ubah_petugas/{id_petugas}', [PetugasController::class, 'update'])->name('ubah_petugas');
+
+Route::delete('/hapus_petugas/{id_petugas}', [PetugasController::class, 'destroy'])->name('hapus_petugas');
+

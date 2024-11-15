@@ -82,10 +82,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Aktivitas:</h6>
-                        <a class="collapse-item" href="#">Tambah Akun Masyarakat</a>
-                        <a class="collapse-item" href="#">Borders</a>
-                        <a class="collapse-item" href="#">Animations</a>
-                        <a class="collapse-item" href="#">Other</a>
+                        <a class="collapse-item" href="#">Data Masyarakat</a>
+                        <a class="collapse-item" href="#">Data Aspirasi</a>
+                        <a class="collapse-item" href="#">Data Tanggapan</a>
                     </div>
                 </div>
             </li>
