@@ -396,6 +396,13 @@
     <script src="{{ asset('Template/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
+    <script src="{{asset("Template/vendor/datatables/jquery.dataTables.min.js")}}"></script>
+    <script src="{{asset("Template/vendor/datatables/dataTables.bootstrap4.min.js")}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset("Template/js/demo/datatables-demo.js")}}"></script>
+
+    <!-- Page level plugins -->
     <script src="{{ asset('Template/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->

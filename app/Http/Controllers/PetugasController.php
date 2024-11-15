@@ -12,8 +12,8 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        $petugas = Petugas::all();
-        return view('Page.Petugas.index', compact('petugas'));
+        $daffapetugas = Petugas::all();
+        return view('Page.Petugas.index', compact('daffapetugas'));
     }
 
     /**
@@ -21,7 +21,7 @@ class PetugasController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
