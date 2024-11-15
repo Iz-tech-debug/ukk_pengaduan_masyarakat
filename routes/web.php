@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasyarakatController;
+use App\Http\Controllers\PetugasController;
 use App\Models\Masyarakat;
 
 /*
@@ -39,7 +40,11 @@ Route::get('/login', [LoginController::class, 'index'])->name('masuk');
 
 Route::post('/masuk', [LoginController::class, 'login'])->name('masuk');
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// Masyarakat
 Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('register');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+// Petugas
+Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas_index');
+
