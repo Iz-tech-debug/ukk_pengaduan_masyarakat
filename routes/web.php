@@ -54,3 +54,12 @@ Route::put('/ubah_petugas/{id_petugas}', [PetugasController::class, 'update'])->
 
 Route::delete('/hapus_petugas/{id_petugas}', [PetugasController::class, 'destroy'])->name('hapus_petugas');
 
+// Masyarakat
+Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat_index');
+
+Route::post('/tambah_masyarakat', [MasyarakatController::class, 'store'])->name('tambah_masyarakat');
+
+Route::put('/ubah_masyarakat/{id}', [MasyarakatController::class, 'update'])->name('ubah_masyarakat');
+
+Route::delete('/hapus_masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('hapus_masyarakat');
+

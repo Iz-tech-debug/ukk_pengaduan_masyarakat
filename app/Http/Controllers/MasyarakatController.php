@@ -13,7 +13,9 @@ class MasyarakatController extends Controller
      */
     public function index()
     {
-        //
+        // Tampilan Masyarakat
+        $daffamasyarakat = Masyarakat::all();
+        return view('Page.Petugas.index', compact('daffamasyarakat'));
     }
 
     /**
@@ -121,6 +123,6 @@ class MasyarakatController extends Controller
      */
     public function destroy(Masyarakat $masyarakat)
     {
-        //
+        // Hapus Masyarakat
     }
 }

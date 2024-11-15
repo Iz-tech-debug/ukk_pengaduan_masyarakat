@@ -120,8 +120,13 @@ class PetugasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Petugas $petugas)
+    public function destroy($id_petugas)
     {
-        //
+        // Hapus Petugas
+        $daffapetugas = Petugas::findOrFail($id_petugas);
+
+        dd($daffapetugas);
+        // $daffapetugas->delete();
+        return redirect("/petugas");
     }
 }
