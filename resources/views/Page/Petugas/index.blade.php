@@ -23,30 +23,30 @@
                 <table class="table table-bordered" id="daffatabel">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="text-center">#</th>
                             <th>Nama</th>
                             <th>Nama Pengguna</th>
                             <th>Telepon</th>
                             <th>Level</th>
-                            <th>Aksi</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($daffapetugas as $daffaitem)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $daffaitem->nama_petugas }}</td>
                                 <td>{{ $daffaitem->username }}</td>
                                 <td>{{ $daffaitem->telp }}</td>
                                 <td style="color:{{ $daffaitem->level == 'admin' ? 'blue' : 'green' }}">
                                     {{ $daffaitem->level }}</td>
-                                <td>
+                                <td class="text-center">
                                     <button type="button" class="btn btn-warning btn-sm btn-circle" data-toggle="modal"
-                                        data-target="#ubahpetugas{{ $daffaitem->id_petugas }}">
+                                        data-target="#{{ $daffaitem->id }}">
                                         <i class="fas fa-edit"></i>
                                     </button> |
                                     <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
-                                        data-target="#hapuspetugas{{ $daffaitem->id_petugas }}">
+                                        data-target="#{{ $daffaitem->id }}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>

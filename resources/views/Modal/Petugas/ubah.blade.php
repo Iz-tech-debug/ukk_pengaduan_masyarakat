@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="telp">Telepon</label>
                         <input type="number" class="form-control" id="daffatelp" name="daffatelp"
-                            value="{{ $daffaitem->telp }}" required>
+                            value="{{ $daffaitem->telp }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                         @error('daffatelp')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

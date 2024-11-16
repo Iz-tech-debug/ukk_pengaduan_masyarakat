@@ -85,7 +85,6 @@ class PetugasController extends Controller
     public function update(Request $request, $id_petugas)
     {
         // Ubah data petugas
-
         $request->validate([
             'daffanama' => 'required|string',
             'daffauser' => 'required|unique:masyarakat,username|unique:petugas,username',
@@ -101,8 +100,10 @@ class PetugasController extends Controller
             'daffapassword.required' => 'Password harus diisi',
             'daffalevel.required' => 'Hak akses harus dipilih',
         ]);
-
-        $daffapetugas = Petugas::where('id_petugas', $id_petugas)->firstOrFail();
+        
+        $daffapetugas = Petugas::where('username', $request->daffauser)
+            ->where('id_petugas', '!=', $id_petugas)
+            ->first();
 
         $daffapetugas->nama_petugas = $request->daffanama;
         $daffapetugas->username = $request->daffauser;
@@ -125,8 +126,8 @@ class PetugasController extends Controller
         // Hapus Petugas
         $daffapetugas = Petugas::findOrFail($id_petugas);
 
-        dd($daffapetugas);
-        // $daffapetugas->delete();
+        // dd($daffapetugas);
+        $daffapetugas->delete();
         return redirect("/petugas");
     }
 }

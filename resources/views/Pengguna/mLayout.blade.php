@@ -51,8 +51,8 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Aktivitas
+            <div class="sidebar-heading text-white">
+                Data
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -65,7 +65,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Aksi:</h6>
-                        <a class="collapse-item" href="{{route('petugas_index')}}">Petugas</a>
+                        <a class="collapse-item" href="{{ route('petugas_index') }}">Petugas</a>
                         <a class="collapse-item" href="#">Log Aktivitas</a>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Aktivitas:</h6>
-                        <a class="collapse-item" href="#">Data Masyarakat</a>
+                        <a class="collapse-item" href="{{ route('masyarakat_index') }}">Data Masyarakat</a>
                         <a class="collapse-item" href="#">Data Aspirasi</a>
                         <a class="collapse-item" href="#">Data Tanggapan</a>
                     </div>
@@ -93,8 +93,8 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
+            <div class="sidebar-heading text-white">
+                Pembuatan Laporan
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -395,11 +395,11 @@
     <script src="{{ asset('Template/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{asset("Template/vendor/datatables/jquery.dataTables.min.js")}}"></script>
-    <script src="{{asset("Template/vendor/datatables/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="{{ asset('Template/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('Template/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{asset("Template/js/demo/datatables-demo.js")}}"></script>
+    <script src="{{ asset('Template/js/demo/datatables-demo.js') }}"></script>
 
     <!-- Page level plugins -->
     <script src="{{ asset('Template/vendor/chart.js/Chart.min.js') }}"></script>
