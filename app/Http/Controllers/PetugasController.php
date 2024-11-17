@@ -17,6 +17,12 @@ class PetugasController extends Controller
         return view('Page.Petugas.index', compact('daffapetugas'));
     }
 
+    public function petugas()
+    {
+        $daffapetugas = Petugas::where('level', 'petugas')->get();
+        return view('Page.Petugas.index', compact('daffapetugas'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -100,7 +106,7 @@ class PetugasController extends Controller
             'daffapassword.required' => 'Password harus diisi',
             'daffalevel.required' => 'Hak akses harus dipilih',
         ]);
-        
+
         $daffapetugas = Petugas::where('username', $request->daffauser)
             ->where('id_petugas', '!=', $id_petugas)
             ->first();

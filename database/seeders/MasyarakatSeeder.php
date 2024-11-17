@@ -23,6 +23,7 @@ class MasyarakatSeeder extends Seeder
                 'username' => 'Daoa',
                 'password' => Hash::make('1'),
                 'telp' => '081223025896',
+                'level' => 'masyarakat',
             ],
             [
                 'nik' => '56789276560',
@@ -30,16 +31,18 @@ class MasyarakatSeeder extends Seeder
                 'username' => 'Fufu',
                 'password' => Hash::make('1'),
                 'telp' => '089123467891',
+                'level' => 'masyarakat',
             ],
         ];
 
-        foreach ($daffamasyarakat as $masyarakat) {
+        foreach ($daffamasyarakat as $daffaarray) {
             Masyarakat::create([
-                'nik' => $masyarakat['nik'],
-                'nama' => $masyarakat['nama'],
-                'username' => $masyarakat['username'],
-                'password' => $masyarakat['password'],
-                'telp' => $masyarakat['telp'],
+                'nik' => $daffaarray['nik'],
+                'nama' => $daffaarray['nama'],
+                'username' => $daffaarray['username'],
+                'password' => $daffaarray['password'],
+                'telp' => $daffaarray['telp'],
+                'level' => $daffaarray['level'],
             ]);
         }
     }

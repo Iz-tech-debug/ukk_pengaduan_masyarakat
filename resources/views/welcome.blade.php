@@ -79,6 +79,12 @@
         </nav>
     </header>
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="hero">
         <div class="text-center">
             <h1>Laporkan Masalah Anda</h1>

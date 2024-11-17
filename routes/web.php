@@ -30,10 +30,20 @@ Route::get('/registrasi', function () {
     return view('regist');
 });
 
-
-Route::get('/admin', function () {
+// Admin
+Route::get('/admin_index', function () {
     return view('Pengguna.Admin.index');
 });
+
+// Petugas
+Route::get('/petugas_index', function () {
+    return view('Pengguna.Petugas.index');
+})->middleware('authlevel:petugas');
+
+// Masyarakat
+Route::get('/masyarakat_index', function () {
+    return view('Pengguna.Masyarakat.index');
+})->middleware('authlevel:masyarakat');
 
 // Authentication
 Route::get('/login', [LoginController::class, 'index'])->name('masuk');
@@ -63,3 +73,13 @@ Route::put('/ubah_masyarakat/{id}', [MasyarakatController::class, 'update'])->na
 
 Route::delete('/hapus_masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('hapus_masyarakat');
 
+
+
+// Logout
+Route::get('/logout', function () {
+    // Hapus semua sesi
+    session()->flush();
+
+    // Redirect ke halaman login
+    return redirect('/halaman_utama')->with('success', 'Anda berhasil logout.');
+});

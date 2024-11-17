@@ -33,13 +33,13 @@ class PetugasSeeder extends Seeder
             ]
         ];
 
-        foreach ($daffapetugas as $petugas) {
+        foreach ($daffapetugas as $daffarray) {
             Petugas::create([
-                'nama_petugas' => $petugas['nama_petugas'],
-                'username' => $petugas['username'],
-                'password' => $petugas['password'],
-                'telp' => $petugas['telp'],
-                'level' => $petugas['level'],
+                'nama_petugas' => $daffarray['nama_petugas'],
+                'username' => $daffarray['username'],
+                'password' => $daffarray['password'],
+                'telp' => $daffarray['telp'],
+                'level' => $daffarray['level'],
             ]);
         }
     }
