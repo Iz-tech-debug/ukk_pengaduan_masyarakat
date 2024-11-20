@@ -64,6 +64,11 @@ Route::delete('/hapus_masyarakat/{id}', [MasyarakatController::class, 'destroy']
 // Pengaduan
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan_index');
 
+Route::post('/tambah_pengaduan', [PengaduanController::class, 'store'])->name('tambah_masyarakat');
+
+Route::delete('/hapus_pengaduan/{id_pengaduan}', [PengaduanController::class, 'destroy'])->name('hapus_masyarakat');
+
+
 // Update Status & Tanggapan
 Route::post('/tanggapi', [TanggapanController::class, 'store'])->name('tanggapi');
 

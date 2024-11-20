@@ -15,6 +15,7 @@ class PengaduanController extends Controller
     {
         // Tampilan Pengaduan
         $daffapengaduan = Pengaduan::whereIn('status', ['0', 'proses'])->get();
+        
         $daffaforeign = Pengaduan::where('masyarakat');
 
         return view('Page.Pengaduan.Pengaduan', compact('daffapengaduan', 'daffaforeign'));
@@ -28,6 +29,7 @@ class PengaduanController extends Controller
         //
     }
 
+    // Tampilan data untuk masyarakat
     public function DataPengaduan()
     {
         // Tampilan Data Pengaduan
@@ -59,27 +61,6 @@ class PengaduanController extends Controller
 
         return redirect('/masyarakat_index');
     }
-
-    public function ubahStatus(Request $request)
-    {
-        $pengaduan = Pengaduan::find($request->id_pengaduan);
-
-        if ($pengaduan) {
-            $pengaduan->status = $request->status;
-            $pengaduan->save();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Status berhasil diubah.',
-            ]);
-        }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Pengaduan tidak ditemukan.',
-        ]);
-    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -116,9 +97,12 @@ class PengaduanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pengaduan $pengaduan)
+    public function destroy(Pengaduan $pengaduan, $id_pengaduan)
     {
         // Hapus Pengaduan
-        
+        $daffapengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
+        $daffapengaduan->delete();
+
+        return redirect('/pengaduan');
     }
 }

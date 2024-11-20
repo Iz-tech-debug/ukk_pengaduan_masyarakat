@@ -4,6 +4,7 @@
         <div class="modal-content">
             <form action="/hapus_pengaduan/{{ $daffaitem->id_pengaduan }}" method="POST">
                 @csrf
+                @method('delete')
                 <div class="modal-header">
                     <h5 class="modal-title" id="selesaikanPengaduanLabel">Tolak Pengaduan</h5>
                 </div>
