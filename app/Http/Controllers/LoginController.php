@@ -58,6 +58,7 @@ class LoginController extends Controller
             if (Hash::check($daffapassword, $daffamasyarakat->password)) {
                 session([
                     'daffaid' => $daffamasyarakat->id,
+                    'daffanik' => $daffamasyarakat->nik,
                     'daffanama' => $daffamasyarakat->nama,
                     'daffalevel' => $daffamasyarakat->level,
                 ]);

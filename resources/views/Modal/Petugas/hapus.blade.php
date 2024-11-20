@@ -1,10 +1,10 @@
 {{-- Modal Hapus Petugas --}}
-<div class="modal fade" id="hapuspetugas{{ $daffaitem->id_petugas }}" tabindex="-1" aria-labelledby="hapuspetugasLabel"
+<div class="modal fade" id="daffahapuspetugas{{ $daffaitem->id_petugas }}" tabindex="-1" aria-labelledby="daffahapuspetugasLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="hapuspetugasLabel">Hapus Data Petugas</h5>
+                <h5 class="modal-title" id="daffahapuspetugasLabel">Hapus Data Petugas</h5>
             </div>
             <div class="modal-body">
                 <p>Anda yakin ingin menghapus data petugas <strong>{{ $daffaitem->nama_petugas }}</strong>?</p>

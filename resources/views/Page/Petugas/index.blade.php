@@ -42,11 +42,11 @@
                                     {{ $daffaitem->level }}</td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-warning btn-sm btn-circle" data-toggle="modal"
-                                        data-target="#{{ $daffaitem->id }}">
+                                        data-target="#daffaubahpetugas{{ $daffaitem->id_petugas }}">
                                         <i class="fas fa-edit"></i>
                                     </button> |
                                     <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
-                                        data-target="#{{ $daffaitem->id }}">
+                                        data-target="#daffahapuspetugas{{ $daffaitem->id_petugas }}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>

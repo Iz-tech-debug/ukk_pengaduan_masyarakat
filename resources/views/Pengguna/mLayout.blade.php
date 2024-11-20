@@ -83,7 +83,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Aktivitas:</h6>
                         <a class="collapse-item" href="{{ route('masyarakat_index') }}">Data Masyarakat</a>
-                        <a class="collapse-item" href="#">Data Aspirasi</a>
+                        <a class="collapse-item" href="{{ route('pengaduan_index')}}">Data Aspirasi</a>
                         <a class="collapse-item" href="#">Data Tanggapan</a>
                     </div>
                 </div>
@@ -304,7 +304,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
                                     class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('daffanama') }}</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -1,9 +1,9 @@
-<div class="modal fade" id="ubahpetugas{{ $daffaitem->id_petugas }}" tabindex="-1" aria-labelledby="ubahpetugasLabel"
+<div class="modal fade" id="daffaubahpetugas{{ $daffaitem->id_petugas }}" tabindex="-1" aria-labelledby="daffaubahpetugasLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ubahpetugasLabel">Ubah Data Petugas</h5>
+                <h5 class="modal-title" id="daffaubahpetugasLabel">Ubah Data Petugas</h5>
             </div>
             <div class="modal-body">
                 <form action="/ubah_petugas/{{ $daffaitem->id_petugas }}" method="POST">
