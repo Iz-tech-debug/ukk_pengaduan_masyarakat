@@ -4,7 +4,6 @@
 
 @section('content')
 
-    @include('Modal.Pengaduan.tambah')
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Pengaduan</h1>
@@ -25,7 +24,6 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Foto</th>
                             <th>NIK</th>
                             <th style="min-width: 300px">Isi Laporan</th>
                             <th>Tanggal Pengaduan</th>
@@ -36,24 +34,25 @@
                     <tbody>
                         @foreach ($daffapengaduan as $daffaitem)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td><img src="{{ $daffaitem->foto }}" alt=" Gambar Pengaduan" class="img-fluid"
-                                        width="100"></td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $daffaitem->nik }}</td>
                                 <td>{{ $daffaitem->isi_laporan }}</td>
                                 <td>{{ $daffaitem->tgl_pengaduan }}</td>
                                 <td class="text-center">
-                                    @if ($daffaitem->status == 0)
+                                    @if ($daffaitem->status == '0')
                                         <span class="badge badge-danger">Belum Diproses</span>
-                                    @elseif ($daffaitem->status == 1)
+                                    @elseif ($daffaitem->status == 'proses')
                                         <span class="badge badge-warning">Diproses</span>
-                                    @else
-                                        <span class="badge badge-success">Selesai</span>
                                     @endif
                                 </td>
-                                <td class="text-center"><button type="button" class="btn btn-success btn-sm btn-circle"
-                                        data-toggle="modal" data-target="#daffaubahpengaduan{{ $daffaitem->id_pengaduan }}">
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-success btn-sm btn-circle" data-toggle="modal"
+                                        data-target="#daffatanggapan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-edit"></i>
+                                    </button> |
+                                    <button type="button" class="btn btn-success btn-sm btn-circle" data-toggle="modal"
+                                        data-target="#daffaselesaikan{{ $daffaitem->id_pengaduan }}">
+                                        <i class="fas fa-check"></i>
                                     </button> |
                                     <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
                                         data-target="#daffahapuspengaduan{{ $daffaitem->id_pengaduan }}">
@@ -62,6 +61,7 @@
                                 </td>
                             </tr>
                             @include('Modal.Pengaduan.tanggapan')
+                            @include('Modal.Pengaduan.selesai')
                             @include('Modal.Pengaduan.hapus')
                         @endforeach
                     </tbody>

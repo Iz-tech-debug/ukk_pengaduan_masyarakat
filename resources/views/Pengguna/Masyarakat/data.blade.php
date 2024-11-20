@@ -9,17 +9,12 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <style>
         .hero {
-            background: url('{{ asset('img/logo-ar.png') }}') no-repeat center center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
         }
 
         .features {
@@ -75,53 +70,46 @@
     </header>
 
     <div class="hero">
-        <div class="text-center">
-            <h1>Laporkan Masalah Anda</h1>
-            <p class="lead">Sistem Pengaduan Masyarakat untuk menyuarakan aspirasi dan keluhan Anda dengan mudah dan
-                cepat.</p>
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                data-bs-target="#daffapengaduan">
-                Ajukan Pengaduan
-            </button>
+        <div class="container mt-5 mb-5">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Foto</th>
+                        <th>NIK</th>
+                        <th style="min-width: 300px">Isi Laporan</th>
+                        <th>Tanggal Pengaduan</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($daffapengaduan as $daffaitem)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td>
+                                <img src="{{ asset('storage/' . $daffaitem->foto) }}" alt="foto" width="100">
+                            </td>
+                            <td>{{ $daffaitem->nik }}</td>
+                            <td>{{ $daffaitem->isi_laporan }}</td>
+                            <td>{{ $daffaitem->created_at->format('d-m-Y H:i') }}</td>
+                            <td class="text-center">
+                                @if ($daffaitem->status == 'proses')
+                                    <span class="badge rounded-pill bg-warning text-dark">Dalam Proses</span>
+                                @elseif ($daffaitem->status == 'selesai')
+                                    <span class="badge rounded-pill bg-success">Selesai</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-primary btn-sm">Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        {{-- Modalnya dibawah --}}
     </div>
 
-    <section class="features" id="fitur">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2>Fitur Utama</h2>
-                <p class="text-muted">Berikut adalah fitur-fitur utama yang tersedia dalam aplikasi kami.</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4 feature-item">
-                    <i class="bi bi-pencil-square display-4 text-primary"></i>
-                    <h4 class="mt-3">Pengaduan Online</h4>
-                    <p>Laporkan keluhan Anda kapan saja dan di mana saja.</p>
-                </div>
-                <div class="col-md-4 feature-item">
-                    <i class="bi bi-bar-chart-line display-4 text-success"></i>
-                    <h4 class="mt-3">Pantau Progres</h4>
-                    <p>Melacak status dan perkembangan pengaduan Anda dengan mudah.</p>
-                </div>
-                <div class="col-md-4 feature-item">
-                    <i class="bi bi-people display-4 text-info"></i>
-                    <h4 class="mt-3">Kolaborasi Masyarakat</h4>
-                    <p>Berikan dukungan atau diskusikan solusi bersama masyarakat lain.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tentang" class="bg-light py-5">
-        <div class="container">
-            <div class="text-center">
-                <h2>Tentang Kami</h2>
-                <p class="text-muted">Aplikasi pengaduan masyarakat yang memberikan kemudahan dalam menyampaikan
-                    aspirasi untuk perubahan yang lebih baik.</p>
-            </div>
-        </div>
-    </section>
 
     <footer>
         <div class="container text-center">

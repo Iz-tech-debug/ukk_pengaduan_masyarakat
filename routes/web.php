@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\TanggapanController;
 use App\Models\Masyarakat;
 
 /*
@@ -36,6 +37,7 @@ Route::get('/admin_index', function () {
     return view('Pengguna.Admin.index');
 })->middleware('authlevel:admin');
 
+
 // Petugas
 Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas_index');
 
@@ -45,8 +47,12 @@ Route::put('/ubah_petugas/{id_petugas}', [PetugasController::class, 'update'])->
 
 Route::delete('/hapus_petugas/{id_petugas}', [PetugasController::class, 'destroy'])->name('hapus_petugas');
 
+
 // Masyarakat
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat_index');
+
+// Masyarakat Registrasi
+Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('register');
 
 Route::post('/tambah_masyarakat', [MasyarakatController::class, 'store'])->name('tambah_masyarakat');
 
@@ -54,8 +60,17 @@ Route::put('/ubah_masyarakat/{id}', [MasyarakatController::class, 'update'])->na
 
 Route::delete('/hapus_masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('hapus_masyarakat');
 
+
 // Pengaduan
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan_index');
+
+// Update Status & Tanggapan
+Route::post('/tanggapi', [TanggapanController::class, 'store'])->name('tanggapi');
+
+Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->name('DataPengadu');
+
+// Pengaduan Masyarakat
+Route::post('/masyarakatngadu', [PengaduanController::class, 'MasyarakatNgadu'])->name('masyarakatngadu');
 
 
 
@@ -74,7 +89,7 @@ Route::get('/masyarakat_index', function () {
 
 
 // Otentikasi
-Route::get('/login', [LoginController::class, 'index'])->name('masuk');
+Route::get('/login', [LoginController::class, 'index'])->name('index_login');
 
 Route::post('/masuk', [LoginController::class, 'login'])->name('masuk');
 
@@ -83,8 +98,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
-// Masyarakat Registrasi
-Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('register');
 
 // Logout
 Route::get('/logout', function () {

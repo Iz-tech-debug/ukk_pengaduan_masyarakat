@@ -14,9 +14,10 @@ class PengaduanController extends Controller
     public function index()
     {
         // Tampilan Pengaduan
-        $daffapengaduan = Pengaduan::all();
+        $daffapengaduan = Pengaduan::whereIn('status', ['0', 'proses'])->get();
+        $daffaforeign = Pengaduan::where('masyarakat');
 
-        return view('Page.Pengaduan.Pengaduan', compact('daffapengaduan'));
+        return view('Page.Pengaduan.Pengaduan', compact('daffapengaduan', 'daffaforeign'));
     }
 
     /**
@@ -25,6 +26,14 @@ class PengaduanController extends Controller
     public function create()
     {
         //
+    }
+
+    public function DataPengaduan()
+    {
+        // Tampilan Data Pengaduan
+        $daffapengaduan = Pengaduan::where('nik', session('daffanik'))->get();
+
+        return view('Pengguna.Masyarakat.data', compact('daffapengaduan'));
     }
 
 
@@ -36,19 +45,41 @@ class PengaduanController extends Controller
         $daffapengaduan->tgl_pengaduan = Carbon::now();
         $daffapengaduan->nik = $daffareq->daffanik;
         $daffapengaduan->isi_laporan = $daffareq->daffaktr;
-        $daffapengaduan->isi_laporan = $daffareq->daffaktr;
+        $daffapengaduan->foto = $daffareq->daffafoto;
         // cek input file gambar
-        if ($daffareq->file('gambar')) {
-            $file = $daffareq->file('gambar');
+        if ($daffareq->file('daffafoto')) {
+            $file = $daffareq->file('daffafoto');
             $extension = $file->getClientOriginalExtension();
-            $filenameToStore = $daffareq->nama_barang . '_' . time() . '.' . $extension;
-            $path = $file->storeAs('gambar_barang', $filenameToStore, 'public');
+            $filenameToStore = $daffareq->daffanik . '_' . time() . '.' . $extension;
+            $path = $file->storeAs('bukti_foto', $filenameToStore, 'public');
             $daffapengaduan->foto = $path;
         }
-
-        $daffapengaduan->status = '0';
+        // dd($daffapengaduan);
         $daffapengaduan->save();
+
+        return redirect('/masyarakat_index');
     }
+
+    public function ubahStatus(Request $request)
+    {
+        $pengaduan = Pengaduan::find($request->id_pengaduan);
+
+        if ($pengaduan) {
+            $pengaduan->status = $request->status;
+            $pengaduan->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status berhasil diubah.',
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Pengaduan tidak ditemukan.',
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -87,6 +118,7 @@ class PengaduanController extends Controller
      */
     public function destroy(Pengaduan $pengaduan)
     {
-        //
+        // Hapus Pengaduan
+        
     }
 }
