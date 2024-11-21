@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
+use App\Models\Tanggapan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class PengaduanController extends Controller
     {
         // Tampilan Pengaduan
         $daffapengaduan = Pengaduan::whereIn('status', ['0', 'proses'])->get();
-        
+
         $daffaforeign = Pengaduan::where('masyarakat');
 
         return view('Page.Pengaduan.Pengaduan', compact('daffapengaduan', 'daffaforeign'));
@@ -32,12 +33,13 @@ class PengaduanController extends Controller
     // Tampilan data untuk masyarakat
     public function DataPengaduan()
     {
-        // Tampilan Data Pengaduan
-        $daffapengaduan = Pengaduan::where('nik', session('daffanik'))->get();
+        // Ambil data pengaduan berdasarkan NIK yang login
+        $daffapengaduan = Pengaduan::where('nik', session('daffanik'))
+            ->with('tanggapan') // Tambahkan relasi ke tanggapan
+            ->get();
 
         return view('Pengguna.Masyarakat.data', compact('daffapengaduan'));
     }
-
 
     public function MasyarakatNgadu(Request $daffareq)
     {

@@ -34,20 +34,30 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#daffatanggapan{{ $daffaitem->id_pengaduan }}">
-                                        <i class="fas fa-edit"> Lihat Tanggapan</i>
-                                    </button> |
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#daffadetail{{ $daffaitem->id_pengaduan }}">
-                                        <i class="fas fa-eye"> Lihat Detail</i>
-                                    </button> |
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                        data-target="#daffahapus{{ $daffaitem->id_pengaduan }}">
-                                        <i class="fas fa-trash"> Tolak</i>
-                                    </button>
+                                    @if ($daffaitem->status != '0')
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#daffatanggapan{{ $daffaitem->id_pengaduan }}">
+                                            <i class="fas fa-edit"> Lihat Tanggapan</i>
+                                        </button>
+                                    @endif
+                                    @if ($daffaitem->status != 'proses' && $daffaitem->status != 'selesai')
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#daffadetail{{ $daffaitem->id_pengaduan }}">
+                                            <i class="fas fa-eye"> Lihat Detail</i>
+                                        </button>
+                                    @endif
+                                    @if ($daffaitem->status != 'selesai' && $daffaitem->status != 'proses')
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#daffahapus{{ $daffaitem->id_pengaduan }}">
+                                            <i class="fas fa-trash"> Hapus</i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
+
+                            @include('Pengguna.Masyarakat.detail')
+                            @include('Pengguna.Masyarakat.tanggapan')
+                            @include('Pengguna.Masyarakat.hapus')
                         @endforeach
                     </tbody>
                 </table>

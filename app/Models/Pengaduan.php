@@ -27,4 +27,9 @@ class Pengaduan extends Model
         return $this->belongsTo(Masyarakat::class, 'nik', 'nik');
     }
 
+    public function tanggapan()
+    {
+        return $this->hasOne(Tanggapan::class, 'id_pengaduan', 'id_pengaduan');
+    }
+
 }
