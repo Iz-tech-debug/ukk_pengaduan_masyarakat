@@ -78,8 +78,11 @@ Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->na
 Route::post('/masyarakatngadu', [PengaduanController::class, 'MasyarakatNgadu'])->name('masyarakatngadu');
 
 
+// Laporan
 
-// Tanggapan
+Route::get('/laporan', [PengaduanController::class, 'LaporanIndex'])->name('laporan_index');
+
+Route::get('/laporan/cetak', [PengaduanController::class, 'CetakLaporan'])->name('laporan_cetak');
 
 
 // Petugas

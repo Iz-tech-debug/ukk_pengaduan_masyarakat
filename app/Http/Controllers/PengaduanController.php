@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Pengaduan;
 use App\Models\Tanggapan;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf; // Import yang benar
 
 class PengaduanController extends Controller
 {
@@ -22,13 +24,73 @@ class PengaduanController extends Controller
         return view('Page.Pengaduan.Pengaduan', compact('daffapengaduan', 'daffaforeign'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Laporan Index
+    public function LaporanIndex(Request $daffareq)
     {
-        //
+        // Ambil semua data pengaduan secara default
+        $daffaquery = Pengaduan::query();
+
+        // Filter berdasarkan status
+        if ($daffareq->filled('status')) {
+            $daffaquery->where('status', $daffareq->status);
+        }
+
+        // Filter berdasarkan tanggal mulai dan selesai
+        if ($daffareq->filled('daffamulai')) {
+            $daffaquery->whereDate('created_at', '>=', $daffareq->daffamulai);
+        }
+
+        if ($daffareq->filled('daffaakhir')) {
+            $daffaquery->whereDate('created_at', '<=', $daffareq->daffaakhir);
+        }
+
+        // Dapatkan data pengaduan berdasarkan filter
+        $daffapengaduan = $daffaquery->get();
+
+        // Kirim data ke view
+        return view('Page.Laporan.index', compact('daffapengaduan'));
     }
+
+    
+    public function CetakLaporan(Request $request)
+    {
+        // Ambil data berdasarkan filter
+        $query = Pengaduan::query();
+
+        if ($request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->daffamulai && $request->daffaakhir) {
+            $query->whereBetween('created_at', [$request->daffamulai, $request->daffaakhir]);
+        }
+
+        // Ambil data dan kelompokkan berdasarkan bulan
+        $daffapengaduan = $query->select(
+            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan"),
+            DB::raw("SUM(CASE WHEN status = '0' THEN 1 ELSE 0 END) as belum_selesai"),
+            DB::raw("SUM(CASE WHEN status = 'proses' THEN 1 ELSE 0 END) as proses"),
+            DB::raw("SUM(CASE WHEN status = 'selesai' THEN 1 ELSE 0 END) as selesai")
+        )
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
+
+        // Format periode untuk ditampilkan
+        $daffamulai = Carbon::parse($request->daffamulai)->translatedFormat('F Y');
+        $daffaakhir = Carbon::parse($request->daffaakhir)->translatedFormat('F Y');
+        $daffaperiode = $daffamulai . ' - ' . $daffaakhir;
+
+        // Load view PDF dan passing data
+        $pdf = PDF::loadView('Page.Laporan.cetak', [
+            'daffapengaduan' => $daffapengaduan,
+            'daffaperiode' => $daffaperiode // Periode dalam format yang sesuai
+        ]);
+
+        // Download file PDF
+        return $pdf->download('laporan_pengaduan.pdf');
+    }
+
 
     // Tampilan data untuk masyarakat
     public function DataPengaduan()

@@ -107,7 +107,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Cetak Laporan:</h6>
-                        <a class="collapse-item" href="#">Aspirasi</a>
+                        <a class="collapse-item" href="/laporan">Aspirasi</a>
                     </div>
                 </div>
             </li>
