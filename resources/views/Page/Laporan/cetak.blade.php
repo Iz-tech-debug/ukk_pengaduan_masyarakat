@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    <img src="" width="100" height="100" alt="Lambang Kota Cimahi">
     <h2>Laporan Pengaduan Masyarakat Kota Cimahi</h2>
 
     <table>
@@ -58,6 +59,7 @@
         <thead>
             <tr>
                 <th>Bulan</th>
+                <th>Total Pengaduan</th>
                 <th>Belum Selesai</th>
                 <th>Sedang Proses</th>
                 <th>Selesai</th>
@@ -67,6 +69,7 @@
             @foreach ($daffapengaduan as $item)
                 <tr>
                     <td>{{ date('F Y', strtotime($item->bulan)) }}</td>
+                    <td>{{ $item->jumlah }}</td>
                     <td>{{ $item->belum_selesai }}</td>
                     <td>{{ $item->proses }}</td>
                     <td>{{ $item->selesai }}</td>
@@ -74,6 +77,21 @@
             @endforeach
         </tbody>
     </table>
+
+    <h3>III. Penutup</h3>
+    <p>Laporan ini disusun untuk memenuhi tugas kelompok dan dapat digunakan sebagai acuan dalam menangani masalah
+        pengaduan masyarakat Kota Cimahi.</p>
+
+    <br>
+
+    <div style="float: right; text-align: right;">
+        <p>Cimahi, {{ date('d F Y') }}</p>
+        <p>Tim Pengaduan Masyarakat Kota Cimahi</p>
+        <br>
+        <br>
+        <p>_____________________________</p>
+    </div>
+
 </body>
 
 </html>

@@ -51,7 +51,7 @@ class PengaduanController extends Controller
         return view('Page.Laporan.index', compact('daffapengaduan'));
     }
 
-    
+
     public function CetakLaporan(Request $request)
     {
         // Ambil data berdasarkan filter
@@ -68,6 +68,7 @@ class PengaduanController extends Controller
         // Ambil data dan kelompokkan berdasarkan bulan
         $daffapengaduan = $query->select(
             DB::raw("DATE_FORMAT(created_at, '%Y-%m') as bulan"),
+            DB::raw("SUM(CASE WHEN status THEN 1 ELSE 0 END) as jumlah"),
             DB::raw("SUM(CASE WHEN status = '0' THEN 1 ELSE 0 END) as belum_selesai"),
             DB::raw("SUM(CASE WHEN status = 'proses' THEN 1 ELSE 0 END) as proses"),
             DB::raw("SUM(CASE WHEN status = 'selesai' THEN 1 ELSE 0 END) as selesai")
@@ -90,7 +91,6 @@ class PengaduanController extends Controller
         // Download file PDF
         return $pdf->download('laporan_pengaduan.pdf');
     }
-
 
     // Tampilan data untuk masyarakat
     public function DataPengaduan()

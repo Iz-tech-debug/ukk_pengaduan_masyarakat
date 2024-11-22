@@ -22,17 +22,18 @@
                 <div class="form-group col-md-3">
                     <label for="daffamulai">Tanggal Mulai</label>
                     <input type="date" class="form-control" id="daffamulai" name="daffamulai"
-                        value="{{ request('daffamulai') }}">
+                        value="{{ request('daffamulai') }}" required>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="daffaakhir">Tanggal Selesai</label>
                     <input type="date" class="form-control" id="daffaakhir" name="daffaakhir"
-                        value="{{ request('daffaakhir') }}">
+                        value="{{ request('daffaakhir') }}" required>
                 </div>
                 <div class="form-group col-md-3 align-self-end">
                     @if (request()->has('status') || request()->has('daffamulai') || request()->has('daffaakhir'))
                         <a href="{{ route('laporan_cetak', request()->all()) }}" class="btn btn-success"><i
-                                class="fas fa-print"></i> Cetak</a>
+                                class="fas fa-print"></i> Cetak </a> <small><i class="fas fa-info"> Periode yang
+                                dipilih</i></small>
                     @else
                         <button type="submit" class="btn btn-primary">Filter</button>
                     @endif
@@ -50,7 +51,6 @@
                     <th>Tanggal</th>
                     <th>Isi Laporan</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
 
@@ -70,11 +70,6 @@
                                 <span class="badge bg-success text-white">Selesai</span>
                             @endif
                         </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-info btn-sm">
-                                <i class="fas fa-print"></i> Cetak
-                            </button>
-                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -82,8 +77,6 @@
                     </tr>
                 @endforelse
             </tbody>
-
-
         </table>
     </div>
 @endsection
