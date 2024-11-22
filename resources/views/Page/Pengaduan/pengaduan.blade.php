@@ -49,12 +49,12 @@
                                     <button type="button" class="btn btn-success btn-sm btn-circle" data-toggle="modal"
                                         data-target="#daffatanggapan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-edit"></i>
-                                    </button> |
-                                    <button type="button" class="btn btn-success btn-sm btn-circle" data-toggle="modal"
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-sm btn-circle {{ $daffaitem->status == '0' ? 'd-none' : '' }}" data-toggle="modal"
                                         data-target="#daffaselesaikan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-check"></i>
-                                    </button> |
-                                    <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-circle {{ $daffaitem->status == 'proses' ? 'd-none' : '' }}" data-toggle="modal"
                                         data-target="#daffahapuspengaduan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-trash"></i>
                                     </button>

@@ -2,7 +2,7 @@
     aria-labelledby="daffatanggapanLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="detailPengaduanLabel">Detail Pengaduan</h5>
             </div>
             <div class="modal-body">
@@ -42,7 +42,6 @@
                 <form action="/tanggapi" method="POST">
                     @csrf
                     <input type="hidden" name="daffaid_pengaduan" value="{{ $daffaitem->id_pengaduan }}">
-
                     <input type="hidden" name="daffaid_petugas" value="{{ session('daffaid') }}">
                     <hr>
                     <div class="form-group">
@@ -51,10 +50,11 @@
                             placeholder="Masukkan tanggapan Anda..." required></textarea>
                     </div>
                     <div class="form-group mt-3 text-end">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Kirim Tanggapan</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

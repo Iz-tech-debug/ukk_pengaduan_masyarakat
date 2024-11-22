@@ -4,11 +4,21 @@
 
 @section('content')
 
+    @include('Pengguna.Masyarakat.tambah')
+
+    
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Pengaduan</h6>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-end mb-3">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#daffatambahpengaduan">
+                    <i class="fas fa-plus"></i> Ajukan Pengaduan
+                </button>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="dataTable">
                     <thead>
@@ -31,6 +41,8 @@
                                         <span class="badge badge-danger">Belum Diproses</span>
                                     @elseif ($daffaitem->status == 'proses')
                                         <span class="badge badge-warning">Diproses</span>
+                                    @else
+                                        <span class="badge badge-success">Selesai</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -64,5 +76,7 @@
             </div>
         </div>
     </div>
+
+
 
 @endsection

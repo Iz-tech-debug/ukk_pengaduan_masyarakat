@@ -61,15 +61,20 @@ class PengaduanController extends Controller
         // dd($daffapengaduan);
         $daffapengaduan->save();
 
-        return redirect('/masyarakat_index');
+        return redirect('/data_pengaduan');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $daffarequest)
     {
-        //
+        // Selesaikan Pengaduan status
+        $daffapengaduan = Pengaduan::where('id_pengaduan', $daffarequest->daffaid_pengaduan)->firstOrFail();
+        $daffapengaduan->status = 'selesai';
+        $daffapengaduan->save();
+
+        return redirect('/pengaduan');
     }
 
     /**

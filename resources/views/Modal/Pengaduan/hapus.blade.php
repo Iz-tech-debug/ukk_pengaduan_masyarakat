@@ -14,7 +14,7 @@
                     <input type="hidden" name="status" value="selesai">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-danger">Tolak</button>
                 </div>
             </form>
