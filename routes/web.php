@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MasyarakatController;
-use App\Http\Controllers\PengaduanController;
-use App\Http\Controllers\PetugasController;
-use App\Http\Controllers\TanggapanController;
+use App\Models\Log;
 use App\Models\Masyarakat;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\TanggapanController;
+use App\Http\Controllers\MasyarakatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,12 @@ Route::get('/registrasi', function () {
 Route::get('/admin_index', function () {
     return view('Pengguna.Admin.index');
 })->middleware('authlevel:admin');
+
+
+
+// Log Aktivitas
+Route::get('/log', [LogController::class, 'index'])->name('log_index');
+
 
 
 // Petugas
@@ -68,9 +76,14 @@ Route::put('/selesaikan_pengaduan/{id_pengaduan}', [PengaduanController::class, 
 
 Route::delete('/hapus_pengaduan/{id_pengaduan}', [PengaduanController::class, 'destroy'])->name('hapus_masyarakat');
 
+// Petugas Pengaduan
+
+Route::get('/petugas_pengaduan', [PengaduanController::class, 'PetugasPengaduan'])->name('petugas_pengaduan');
 
 // Update Status & Tanggapan
 Route::post('/tanggapi', [TanggapanController::class, 'store'])->name('tanggapi');
+
+Route::post('/petugas_tanggapi', [TanggapanController::class, 'PetugasTanggapan'])->name('tanggapi');
 
 Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->name('DataPengadu');
 
@@ -79,10 +92,10 @@ Route::post('/masyarakatngadu', [PengaduanController::class, 'MasyarakatNgadu'])
 
 
 // Laporan
-
 Route::get('/laporan', [PengaduanController::class, 'LaporanIndex'])->name('laporan_index');
 
 Route::get('/laporan/cetak', [PengaduanController::class, 'CetakLaporan'])->name('laporan_cetak');
+
 
 
 // Petugas
@@ -96,20 +109,23 @@ Route::get('/masyarakat_index', function () {
 })->middleware('authlevel:masyarakat');
 
 
+
+
 // Otentikasi
 Route::get('/login', [LoginController::class, 'index'])->name('index_login');
 
 Route::post('/masuk', [LoginController::class, 'login'])->name('masuk');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-
-
-
 // Logout
 Route::get('/logout', function () {
-    // Hapus semua sesi
+
+    // **Log aktivitas petugas**
+    Log::create([
+        'id_petugas' => session('daffaid'),
+        'keterangan' => 'Logout Dari Aplikasi',
+        'timestamp' => now(),
+    ]);
+
     session()->flush();
 
     // Redirect ke halaman login

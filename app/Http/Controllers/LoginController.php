@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Petugas;
 use App\Models\Masyarakat;
 use Illuminate\Http\daffarequest;
@@ -42,6 +43,14 @@ class LoginController extends Controller
                     'daffanama' => $daffapetugas->nama_petugas,
                     'daffalevel' => $daffapetugas->level,
                 ]);
+
+                // **Log aktivitas petugas**
+                Log::create([
+                    'id_petugas' => $daffapetugas->id_petugas,
+                    'keterangan' => 'Login Kedalam Aplikasi',
+                    'timestamp' => now(),
+                ]);
+
                 if ($daffapetugas->level === 'petugas') {
                     return redirect('/petugas_index');
                 } elseif ($daffapetugas->level === 'admin') {
@@ -118,8 +127,12 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function logout(string $id)
     {
-        //
+        // Logout
+
+        session()->flush();
+
+        return redirect('/login');
     }
 }

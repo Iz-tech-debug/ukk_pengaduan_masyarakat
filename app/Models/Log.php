@@ -17,4 +17,10 @@ class Log extends Model
         'id_petugas',
         'keterangan',
     ];
+
+    // Foreign key ke tabel petugas
+    public function petugas()
+    {
+        return $this->belongsTo(Petugas::class, 'id_petugas', 'id_petugas');
+    }
 }

@@ -19,4 +19,9 @@ class Petugas extends Model
         'telp',
         'level',
     ];
+
+    public function tanggapan()
+    {
+        return $this->hasMany(Tanggapan::class, 'id_petugas', 'id_petugas');
+    }
 }

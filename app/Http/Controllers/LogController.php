@@ -13,7 +13,7 @@ class LogController extends Controller
     public function index()
     {
         // Log Aktivitas Petugas
-        $daffaaktivitas = Log::all();
+        $daffaaktivitas = Log::with('petugas')->get();
 
         return view('Page.Log.index', compact('daffaaktivitas'));
     }

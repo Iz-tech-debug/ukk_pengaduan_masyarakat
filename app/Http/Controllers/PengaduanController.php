@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use Carbon\Carbon;
 use App\Models\Pengaduan;
 use App\Models\Tanggapan;
@@ -126,6 +127,15 @@ class PengaduanController extends Controller
         return redirect('/data_pengaduan');
     }
 
+    public function PetugasPengaduan()
+    {
+        $daffapengaduan = Pengaduan::whereIn('status', ['0', 'proses'])->get();
+
+        $daffaforeign = Pengaduan::where('masyarakat');
+
+        return view('Pengguna.Petugas.data', compact('daffapengaduan'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -137,6 +147,22 @@ class PengaduanController extends Controller
         $daffapengaduan->save();
 
         return redirect('/pengaduan');
+    }
+
+    public function PetugasStatus(Request $daffarequest)
+    {
+        // Selesaikan Pengaduan status
+        $daffapengaduan = Pengaduan::where('id_pengaduan', $daffarequest->daffaid_pengaduan)->firstOrFail();
+        $daffapengaduan->status = 'selesai';
+        $daffapengaduan->save();
+
+        // Log aktivitas
+        $daffaaktivitas = new Log;
+        $daffaaktivitas->id_petugas = session('daffaid');
+        $daffaaktivitas->keterangan = "Menyelesaikan Pengaduan dengan ID Pengaduan " . $daffarequest->daffaid_pengaduan;
+        $daffaaktivitas->save();
+
+        return redirect('/pengaduan_index');
     }
 
     /**
@@ -173,5 +199,20 @@ class PengaduanController extends Controller
         $daffapengaduan->delete();
 
         return redirect('/pengaduan');
+    }
+
+    public function PetugasDestroy(Pengaduan $pengaduan, $id_pengaduan)
+    {
+        // Hapus Pengaduan
+        $daffapengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
+        $daffapengaduan->delete();
+
+        // Log aktivitas
+        $daffaaktivitas = new Log;
+        $daffaaktivitas->id_petugas = session('daffaid');
+        $daffaaktivitas->keterangan = "Menghapus Pengaduan dengan ID Pengaduan " . $id_pengaduan;
+        $daffaaktivitas->save();
+
+        return redirect('/petugas_pengaduan');
     }
 }
