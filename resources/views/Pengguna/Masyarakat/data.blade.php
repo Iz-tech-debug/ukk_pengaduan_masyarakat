@@ -4,9 +4,13 @@
 
 @section('content')
 
-    @include('Pengguna.Masyarakat.tambah')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    
+    @include('Pengguna.Masyarakat.tambah')
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">

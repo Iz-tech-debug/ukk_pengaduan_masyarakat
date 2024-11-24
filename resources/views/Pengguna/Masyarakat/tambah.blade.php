@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="daffanik">NIK</label>
-                        <input type="number" class="form-control" id="daffanik" name="daffanik" value="{{ session('daffanik') }}" required>
+                        <input type="number" class="form-control" id="daffanik" name="daffanik" value="{{ session('daffanik') }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="daffaktr">Isi Laporan</label>

@@ -63,8 +63,6 @@ class MasyarakatController extends Controller
      */
     public function store(Request $request)
     {
-        // Memasukkan data kedalam tabel Masyarakat
-
         $request->validate([
             'daffanik' => 'required|unique:masyarakat,nik',
             'daffanama' => 'required|string',
@@ -112,18 +110,15 @@ class MasyarakatController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $daffareq, $nik)
     {
         // Ubah data Masyarakat
-        $request->validate([
+        $daffareq->validate([
             'daffanik' => 'required|numeric|unique:masyarakat,nik',
             'daffanama' => 'required|string',
             'daffauser' => [
                 'required',
-                Rule::unique('masyarakat', 'username')->ignore($id),
+                Rule::unique('masyarakat', 'username')->ignore($nik),
                 Rule::unique('petugas', 'username')
             ],
             'daffatelp' => 'required|numeric',
@@ -138,21 +133,20 @@ class MasyarakatController extends Controller
             'daffauser.unique' => 'Username sudah terdaftar',
         ]);
 
-        $daffamasyarakat = Masyarakat::findOrFail($id);
+        $daffamasyarakat = Masyarakat::findOrFail($nik);
 
-        $daffamasyarakat->nik = $request->daffanik;
-        $daffamasyarakat->nama = $request->daffanama;
-        $daffamasyarakat->username = $request->daffauser;
-        $daffamasyarakat->telp = $request->daffatelp;
+        $daffamasyarakat->nik = $daffareq->daffanik;
+        $daffamasyarakat->nama = $daffareq->daffanama;
+        $daffamasyarakat->username = $daffareq->daffauser;
+        $daffamasyarakat->telp = $daffareq->daffatelp;
 
-        // Hanya update password jika field tidak kosong
         if (!empty($request->daffapassword)) {
-            $daffamasyarakat->password = Hash::make($request->daffapassword);
+            $daffamasyarakat->password = Hash::make($daffareq->daffapassword);
         }
 
         $daffamasyarakat->save();
 
-        return redirect('/masyarakat');
+        return redirect()->back()->with('success', 'Akun berhasil diperbarui');
     }
 
     /**
@@ -160,11 +154,13 @@ class MasyarakatController extends Controller
      */
     public function destroy(Masyarakat $masyarakat, $id)
     {
-        // Hapus Masyarakat
-        $daffamasyarakat = Masyarakat::findOrFail($id);
+        try {
+            $daffamasyarakat = Masyarakat::findOrFail($id);
+            $daffamasyarakat->delete();
 
-        // dd($daffamasyarakat);
-        $daffamasyarakat->delete();
-        return redirect("/masyarakat");
+            return redirect()->back()->with('success', 'Akun berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->with('error', 'Akun tidak dapat dihapus karena mempunyai data pengaduan');
+        }
     }
 }

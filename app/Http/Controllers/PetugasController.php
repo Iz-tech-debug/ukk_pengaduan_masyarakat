@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Petugas;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
 class PetugasController extends Controller
@@ -90,11 +91,14 @@ class PetugasController extends Controller
      */
     public function update(Request $request, $id_petugas)
     {
-        // Ubah data petugas
+        // Validasi data petugas
         $request->validate([
             'daffanama' => 'required|string',
-            'daffauser' => 'required|unique:masyarakat,username|unique:petugas,username',
-            'daffapassword' => 'required|string',
+            'daffauser' => [
+                'required',
+                Rule::unique('petugas', 'username')->ignore($id_petugas, 'id_petugas'), // Perbaikan di sini
+                Rule::unique('masyarakat', 'username')
+            ],
             'daffatelp' => 'required|numeric',
             'daffalevel' => 'required|string',
         ], [
@@ -103,25 +107,26 @@ class PetugasController extends Controller
             'daffatelp.numeric' => 'Nomor Telepon harus berupa angka',
             'daffauser.required' => 'Username harus diisi',
             'daffauser.unique' => 'Username sudah terdaftar',
-            'daffapassword.required' => 'Password harus diisi',
             'daffalevel.required' => 'Hak akses harus dipilih',
         ]);
 
-        $daffapetugas = Petugas::where('username', $request->daffauser)
-            ->where('id_petugas', '!=', $id_petugas)
-            ->first();
+        // Temukan petugas berdasarkan id_petugas
+        $daffapetugas = Petugas::findOrFail($id_petugas);
 
+        // Update data petugas
         $daffapetugas->nama_petugas = $request->daffanama;
         $daffapetugas->username = $request->daffauser;
-        $daffapetugas->password = Hash::make($request->daffapassword);
         $daffapetugas->telp = $request->daffatelp;
         $daffapetugas->level = $request->daffalevel;
 
-        // dd($daffapetugas);
+        // Update password jika tidak kosong
+        if (!empty($request->daffapassword)) {
+            $daffapetugas->password = Hash::make($request->daffapassword);
+        }
 
         $daffapetugas->save();
 
-        return redirect('/petugas');
+        return redirect('/petugas')->with('success', 'Data petugas berhasil diperbarui.');
     }
 
     /**

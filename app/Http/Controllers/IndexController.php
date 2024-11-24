@@ -9,14 +9,12 @@ use App\Models\Masyarakat;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilan Utama Admin
     public function AdminIndex()
     {
         $daffatotalPetugas = Petugas::count();
         $daffatotalPengaduan = Pengaduan::count();
-        $daffapengaduanDiproses = Pengaduan::where('status', 'diproses')->count();
+        $daffapengaduanDiproses = Pengaduan::where('status', 'proses')->count();
         $daffatotalMasyarakat = Masyarakat::count();
         $daffapersentaseDiproses = $daffatotalPengaduan > 0 ? ($daffapengaduanDiproses / $daffatotalPengaduan) * 100 : 0;
 
@@ -33,51 +31,16 @@ class IndexController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Tampilan Utama Petugas
     public function PetugasIndex()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Tampilan Utama Masyarakat
+    public function MasyarakatIndex()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        
     }
 }

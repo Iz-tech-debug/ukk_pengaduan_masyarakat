@@ -66,7 +66,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Aksi:</h6>
                         <a class="collapse-item" href="{{ route('petugas_index') }}">Petugas</a>
-                        <a class="collapse-item" href="{{ route('log_index')}}">Log Aktivitas</a>
+                        <a class="collapse-item" href="{{ route('log_index') }}">Log Aktivitas</a>
                     </div>
                 </div>
             </li>
@@ -151,7 +151,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('log_index') }}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Log Aktivitas
                                 </a>

@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="daffapassword" name="daffapassword" required>
+                        <input type="password" class="form-control" id="daffapassword" name="daffapassword">
                         @error('daffapassword')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

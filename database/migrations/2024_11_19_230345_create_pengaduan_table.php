@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->timestamps();
 
             // Foreign Key ke tabel masyarakat
-            $table->foreign('nik')->references('nik')->on('masyarakat');
+            $table->foreign('nik')->references('nik')->on('masyarakat')->onUpdate('cascade');
         });
     }
 

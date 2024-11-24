@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-    <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Pengaduan</h1>
     <p class="mb-4">Semua data pengaduan yang ada didalam <i>Database</i></p>
 
@@ -14,8 +12,6 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between">
                 <h5 class="m-0 font-weight-bold text-primary">Data Pengaduan</h5>
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                    data-target="#daffatambahpengaduan">Tambah Pengaduan</button>
             </div>
         </div>
         <div class="card-body">
@@ -50,11 +46,14 @@
                                         data-target="#daffatanggapan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-success btn-sm btn-circle {{ $daffaitem->status == '0' ? 'd-none' : '' }}" data-toggle="modal"
-                                        data-target="#daffaselesaikan{{ $daffaitem->id_pengaduan }}">
+                                    <button type="button"
+                                        class="btn btn-success btn-sm btn-circle {{ $daffaitem->status == '0' ? 'd-none' : '' }}"
+                                        data-toggle="modal" data-target="#daffaselesaikan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-check"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-circle {{ $daffaitem->status == 'proses' ? 'd-none' : '' }}" data-toggle="modal"
+                                    <button type="button"
+                                        class="btn btn-danger btn-sm btn-circle {{ $daffaitem->status == 'proses' ? 'd-none' : '' }}"
+                                        data-toggle="modal"
                                         data-target="#daffahapuspengaduan{{ $daffaitem->id_pengaduan }}">
                                         <i class="fas fa-trash"></i>
                                     </button>

@@ -44,11 +44,18 @@
                                     <button type="button" class="btn btn-warning btn-sm btn-circle" data-toggle="modal"
                                         data-target="#daffaubahpetugas{{ $daffaitem->id_petugas }}">
                                         <i class="fas fa-edit"></i>
-                                    </button> |
-                                    <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
-                                        data-target="#daffahapuspetugas{{ $daffaitem->id_petugas }}">
-                                        <i class="fas fa-trash"></i>
                                     </button>
+                                    @if (session('daffaid') == $daffaitem->id_petugas)
+                                        <button type="button" class="btn btn-danger btn-sm btn-circle d-none" data-toggle="modal"
+                                            data-target="#daffahapuspetugas{{ $daffaitem->id_petugas }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
+                                            data-target="#daffahapuspetugas{{ $daffaitem->id_petugas }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                             @include('Modal.Petugas.ubah')

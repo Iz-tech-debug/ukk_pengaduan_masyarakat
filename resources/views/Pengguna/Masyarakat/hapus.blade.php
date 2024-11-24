@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <form action="/hapus_pengaduan/{{ $daffaitem->id_pengaduan }}" method="POST">
+                <form action="/hapus_pengaduan_masyarakat/{{ $daffaitem->id_pengaduan }}" method="POST">
                     @csrf
                     @method('delete')
                     <input type="hidden" name="daffaid_pengaduan" value="{{ $daffaitem->id_pengaduan }}">

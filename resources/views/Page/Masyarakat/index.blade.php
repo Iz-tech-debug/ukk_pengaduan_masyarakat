@@ -3,7 +3,16 @@
 @section('title', 'Admin')
 
 @section('content')
+
     @include('Modal.Masyarakat.tambah')
+    
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Pengguna atau Masyarakat</h1>
@@ -20,7 +29,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered"  id="daffatabel">
+                <table class="table table-bordered" id="daffatabel">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>

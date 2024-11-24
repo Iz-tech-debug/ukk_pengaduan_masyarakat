@@ -15,6 +15,8 @@ class LogController extends Controller
         // Log Aktivitas Petugas
         $daffaaktivitas = Log::with('petugas')->get();
 
+        $daffaaktivitas = $daffaaktivitas->sortByDesc('created_at');
+
         return view('Page.Log.index', compact('daffaaktivitas'));
     }
 

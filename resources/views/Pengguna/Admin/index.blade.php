@@ -108,7 +108,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="text-center">#</th>
                         <th>Pelapor</th>
                         <th>Isi Laporan</th>
                         <th>Status</th>
@@ -118,10 +118,13 @@
                 <tbody>
                     @foreach ($daffapengaduanTerbaru as $pengaduan)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $pengaduan->masyarakat->nama }}</td>
                             <td>{{ $pengaduan->isi_laporan }}</td>
-                            <td>{{ ucfirst($pengaduan->status) }}</td>
+                            <td
+                                class="text-{{ $pengaduan->status == '0' ? 'danger' : ($pengaduan->status == 'proses' ? 'warning' : 'success') }}">
+                                {{ $pengaduan->status == '0' ? 'Belum Diproses' : ($pengaduan->status == 'proses' ? 'Proses' : 'Selesai') }}
+                            </td>
                             <td>{{ $pengaduan->created_at->format('d-m-Y') }}</td>
                         </tr>
                     @endforeach

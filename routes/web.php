@@ -87,9 +87,15 @@ Route::put('/selesaikan_pengaduan/{id_pengaduan}', [PengaduanController::class, 
 
 
 // Pengaduan Masyarakat
+Route::get('/masyarakat_index', function () {
+    return view('Pengguna.Masyarakat.index');
+})->middleware('authlevel:masyarakat');
+
 Route::post('/masyarakatngadu', [PengaduanController::class, 'MasyarakatNgadu'])->name('masyarakatngadu');
 
 Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->name('DataPengadu');
+
+Route::delete('/hapus_pengaduan_masyarakat/{id_pengaduan}', [PengaduanController::class, 'MasyarakatDestroy'])->name('DataPengadu');
 
 
 
@@ -105,10 +111,6 @@ Route::get('/petugas_index', function () {
     return view('Pengguna.Petugas.index');
 })->middleware('authlevel:petugas');
 
-// Masyarakat
-Route::get('/masyarakat_index', function () {
-    return view('Pengguna.Masyarakat.index');
-})->middleware('authlevel:masyarakat');
 
 
 

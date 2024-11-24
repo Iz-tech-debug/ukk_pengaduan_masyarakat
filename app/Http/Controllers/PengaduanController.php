@@ -96,9 +96,8 @@ class PengaduanController extends Controller
     // Tampilan data untuk masyarakat
     public function DataPengaduan()
     {
-        // Ambil data pengaduan berdasarkan NIK yang login
         $daffapengaduan = Pengaduan::where('nik', session('daffanik'))
-            ->with('tanggapan') // Tambahkan relasi ke tanggapan
+            ->with('tanggapan')
             ->get();
 
         return view('Pengguna.Masyarakat.data', compact('daffapengaduan'));
@@ -146,7 +145,7 @@ class PengaduanController extends Controller
         $daffapengaduan->status = 'selesai';
         $daffapengaduan->save();
 
-        return redirect('/pengaduan');
+        return redirect()->back()->with('success', 'Pengaduan berhasil diselesaikan');
     }
 
     public function PetugasStatus(Request $daffarequest)
@@ -162,43 +161,25 @@ class PengaduanController extends Controller
         $daffaaktivitas->keterangan = "Menyelesaikan Pengaduan dengan ID Pengaduan " . $daffarequest->daffaid_pengaduan;
         $daffaaktivitas->save();
 
-        return redirect('/pengaduan_index');
+        return redirect()->back()->with('success', 'Pengaduan berhasil diselesaikan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pengaduan $pengaduan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pengaduan $pengaduan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pengaduan $pengaduan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Pengaduan $pengaduan, $id_pengaduan)
     {
         // Hapus Pengaduan
         $daffapengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
         $daffapengaduan->delete();
 
-        return redirect('/pengaduan');
+        return redirect()->back()->with('success', 'Pengaduan berhasil dihapus');
+    }
+
+    public function MasyarakatDestroy(Pengaduan $pengaduan, $id_pengaduan)
+    {
+        // Hapus Pengaduan
+        $daffapengaduan = Pengaduan::where('id_pengaduan', $id_pengaduan)->firstOrFail();
+        $daffapengaduan->delete();
+
+        return redirect()->back()->with('success', 'Pengaduan berhasil dihapus');
     }
 
     public function PetugasDestroy(Pengaduan $pengaduan, $id_pengaduan)
@@ -213,6 +194,6 @@ class PengaduanController extends Controller
         $daffaaktivitas->keterangan = "Menghapus Pengaduan dengan ID Pengaduan " . $id_pengaduan;
         $daffaaktivitas->save();
 
-        return redirect('/petugas_pengaduan');
+        return redirect()->back()->with('success', 'Pengaduan berhasil dihapus');
     }
 }
