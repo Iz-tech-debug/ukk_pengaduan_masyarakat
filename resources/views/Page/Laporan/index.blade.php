@@ -22,12 +22,12 @@
                 <div class="form-group col-md-3">
                     <label for="daffamulai">Tanggal Mulai</label>
                     <input type="date" class="form-control" id="daffamulai" name="daffamulai"
-                        value="{{ request('daffamulai') }}" required>
+                        value="{{ request('daffamulai') }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="daffaakhir">Tanggal Selesai</label>
                     <input type="date" class="form-control" id="daffaakhir" name="daffaakhir"
-                        value="{{ request('daffaakhir') }}" required>
+                        value="{{ request('daffaakhir') }}">
                 </div>
                 <div class="form-group col-md-3 align-self-end">
                     @if (request()->has('status') || request()->has('daffamulai') || request()->has('daffaakhir'))

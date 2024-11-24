@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndexController;
 use App\Models\Log;
 use App\Models\Masyarakat;
 use Illuminate\Support\Facades\Route;
@@ -34,12 +35,9 @@ Route::get('/registrasi', function () {
     return view('regist');
 });
 
-// Admin
-Route::get('/admin_index', function () {
-    return view('Pengguna.Admin.index');
-})->middleware('authlevel:admin');
-
-
+// Admin Route
+Route::get('/admin_index', [IndexController::class, 'AdminIndex'])
+    ->middleware('authlevel:admin');
 
 // Log Aktivitas
 Route::get('/log', [LogController::class, 'index'])->name('log_index');
@@ -59,14 +57,14 @@ Route::delete('/hapus_petugas/{id_petugas}', [PetugasController::class, 'destroy
 // Masyarakat
 Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('masyarakat_index');
 
-// Masyarakat Registrasi
-Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('register');
-
 Route::post('/tambah_masyarakat', [MasyarakatController::class, 'store'])->name('tambah_masyarakat');
 
 Route::put('/ubah_masyarakat/{id}', [MasyarakatController::class, 'update'])->name('ubah_masyarakat');
 
 Route::delete('/hapus_masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('hapus_masyarakat');
+
+// Masyarakat Registrasi
+Route::post('/register', [MasyarakatController::class, 'Registrasi'])->name('register');
 
 
 // Pengaduan
@@ -76,19 +74,23 @@ Route::put('/selesaikan_pengaduan/{id_pengaduan}', [PengaduanController::class, 
 
 Route::delete('/hapus_pengaduan/{id_pengaduan}', [PengaduanController::class, 'destroy'])->name('hapus_masyarakat');
 
-// Petugas Pengaduan
-
-Route::get('/petugas_pengaduan', [PengaduanController::class, 'PetugasPengaduan'])->name('petugas_pengaduan');
-
 // Update Status & Tanggapan
 Route::post('/tanggapi', [TanggapanController::class, 'store'])->name('tanggapi');
 
 Route::post('/petugas_tanggapi', [TanggapanController::class, 'PetugasTanggapan'])->name('tanggapi');
 
-Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->name('DataPengadu');
+
+// Petugas Pengaduan
+Route::get('/petugas_pengaduan', [PengaduanController::class, 'PetugasPengaduan'])->name('petugas_pengaduan');
+
+Route::put('/selesaikan_pengaduan/{id_pengaduan}', [PengaduanController::class, 'store'])->name('selesaikan_pengaduan');
+
 
 // Pengaduan Masyarakat
 Route::post('/masyarakatngadu', [PengaduanController::class, 'MasyarakatNgadu'])->name('masyarakatngadu');
+
+Route::get('/data_pengaduan', [PengaduanController::class, 'DataPengaduan'])->name('DataPengadu');
+
 
 
 // Laporan
@@ -107,7 +109,6 @@ Route::get('/petugas_index', function () {
 Route::get('/masyarakat_index', function () {
     return view('Pengguna.Masyarakat.index');
 })->middleware('authlevel:masyarakat');
-
 
 
 
