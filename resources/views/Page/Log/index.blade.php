@@ -15,7 +15,7 @@
                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th class="text-center">#</th>
                                 <th>Nama Petugas</th>
                                 <th>Keterangan</th>
                                 <th>Waktu</th>
@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach ($daffaaktivitas as $daffaitem)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $daffaitem->petugas->nama_petugas }}</td>
                                     <td>{{ $daffaitem->keterangan }}</td>
                                     <td>{{ $daffaitem->created_at->format('d-m-Y H:i:s') }}</td>

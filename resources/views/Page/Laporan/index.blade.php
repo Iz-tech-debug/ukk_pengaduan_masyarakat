@@ -46,7 +46,7 @@
 
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th class="text-center">#</th>
                     <th>NIK</th>
                     <th>Tanggal</th>
                     <th>Isi Laporan</th>
@@ -57,7 +57,7 @@
             <tbody>
                 @forelse ($daffapengaduan as $key => $item)
                     <tr>
-                        <td>{{ $key + 1 }}</td>
+                        <td class="text-center">{{ $key + 1 }}</td>
                         <td>{{ $item->nik }}</td>
                         <td>{{ $item->created_at->format('d M Y') }}</td>
                         <td>{{ $item->isi_laporan }}</td>
@@ -78,5 +78,10 @@
                 @endforelse
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-center mt-4">
+            {{ $daffapengaduan->links() }}
+        </div>
+
     </div>
 @endsection

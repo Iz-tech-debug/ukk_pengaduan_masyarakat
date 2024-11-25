@@ -46,7 +46,7 @@ class PengaduanController extends Controller
         }
 
         // Dapatkan data pengaduan berdasarkan filter
-        $daffapengaduan = $daffaquery->get();
+        $daffapengaduan = $daffaquery->paginate(10);
 
         // Kirim data ke view
         return view('Page.Laporan.index', compact('daffapengaduan'));

@@ -112,20 +112,27 @@ class MasyarakatController extends Controller
 
     public function update(Request $daffareq, $nik)
     {
-        // Ubah data Masyarakat
+        // Ambil data masyarakat berdasarkan NIK lama
+        $daffamasyarakat = Masyarakat::findOrFail($nik);
+
+        // Ubah validasi untuk mengabaikan NIK saat update
         $daffareq->validate([
-            'daffanik' => 'required|numeric|unique:masyarakat,nik',
+            'daffanik' => [
+                'required',
+                'numeric',
+                Rule::unique('masyarakat', 'nik')->ignore($daffamasyarakat->nik, 'nik'), // Abaikan nik saat update
+            ],
             'daffanama' => 'required|string',
             'daffauser' => [
                 'required',
-                Rule::unique('masyarakat', 'username')->ignore($nik),
-                Rule::unique('petugas', 'username')
+                Rule::unique('masyarakat', 'username')->ignore($daffamasyarakat->nik, 'nik'),
+                Rule::unique('petugas', 'username'),
             ],
             'daffatelp' => 'required|numeric',
         ], [
             'daffanik.required' => 'NIK harus diisi',
             'daffanik.numeric' => 'NIK harus berupa angka',
-            'daffanik.unique' => 'NIK sama dengan pengguna lain',
+            'daffanik.unique' => 'NIK sudah digunakan pengguna lain',
             'daffanama.required' => 'Nama harus diisi',
             'daffatelp.required' => 'Nomor Telepon harus diisi',
             'daffatelp.numeric' => 'Nomor Telepon harus berupa angka',
@@ -133,21 +140,27 @@ class MasyarakatController extends Controller
             'daffauser.unique' => 'Username sudah terdaftar',
         ]);
 
-        $daffamasyarakat = Masyarakat::findOrFail($nik);
-
-        $daffamasyarakat->nik = $daffareq->daffanik;
+        // Update data masyarakat
         $daffamasyarakat->nama = $daffareq->daffanama;
         $daffamasyarakat->username = $daffareq->daffauser;
         $daffamasyarakat->telp = $daffareq->daffatelp;
 
-        if (!empty($request->daffapassword)) {
+        // Update NIK hanya jika berbeda dengan yang lama
+        if ($daffareq->daffanik != $daffamasyarakat->nik) {
+            $daffamasyarakat->nik = $daffareq->daffanik;
+        }
+
+        // Update password jika diisi
+        if (!empty($daffareq->daffapassword)) {
             $daffamasyarakat->password = Hash::make($daffareq->daffapassword);
         }
 
+        // Simpan perubahan
         $daffamasyarakat->save();
 
         return redirect()->back()->with('success', 'Akun berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -38,22 +38,23 @@
                         </p>
                     </div>
                 </div>
-
-                <form action="/tanggapi" method="POST">
-                    @csrf
-                    <input type="hidden" name="daffaid_pengaduan" value="{{ $daffaitem->id_pengaduan }}">
-                    <input type="hidden" name="daffaid_petugas" value="{{ session('daffaid') }}">
-                    <hr>
-                    <div class="form-group">
-                        <label for="daffatanggapan">Tanggapan</label>
-                        <textarea name="daffatanggapan" id="daffatanggapan" class="form-control" rows="4"
-                            placeholder="Masukkan tanggapan Anda..." required></textarea>
-                    </div>
-                    <div class="form-group mt-3 text-end">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Kirim Tanggapan</button>
-                    </div>
-                </form>
+                @if ($daffaitem->status != 'proses')
+                    <form action="/tanggapi" method="POST">
+                        @csrf
+                        <input type="hidden" name="daffaid_pengaduan" value="{{ $daffaitem->id_pengaduan }}">
+                        <input type="hidden" name="daffaid_petugas" value="{{ session('daffaid') }}">
+                        <hr>
+                        <div class="form-group">
+                            <label for="daffatanggapan">Tanggapan</label>
+                            <textarea name="daffatanggapan" id="daffatanggapan" class="form-control" rows="4"
+                                placeholder="Masukkan tanggapan Anda..." required></textarea>
+                        </div>
+                        <div class="form-group mt-3 text-end">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Kirim Tanggapan</button>
+                        </div>
+                    </form>
+                @endif
 
             </div>
         </div>
